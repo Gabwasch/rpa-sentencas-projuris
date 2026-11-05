@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ProJuris (mock)</title>
+  <link rel="stylesheet" href="/projuris/static/pj.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="marca">Pro<span>Juris</span> <small>mock</small></div>
+    <div class="aviso-demo">dados 100% fictícios</div>
+    <a class="sair" href="/projuris/sair">Sair</a>
+  </header>
+  <div class="layout">
+    <nav class="menu-lateral">
+      <ul class="arvore">
+        <li class="no"><a class="no-ancora raiz">Processos</a>
+          <ul class="sub"><li><a class="no-ancora" data-abre="lista">Todos</a></li><li><a class="no-ancora" data-abre="vazio">Meus processos</a></li></ul></li>
+        <li class="no"><a class="no-ancora raiz">Agenda</a>
+          <ul class="sub"><li><a class="no-ancora" data-abre="agenda">Todos</a></li><li><a class="no-ancora" data-abre="agenda">Hoje</a></li></ul></li>
+        <li class="no"><a class="no-ancora raiz">Relatórios</a>
+          <ul class="sub"><li><a class="no-ancora" data-abre="vazio">Gerenciais</a></li></ul></li>
+      </ul>
+    </nav>
+    <main class="conteudo">
+      <section id="painel-boasvindas" class="painel visivel">
+        <h1>Bem-vindo(a)</h1>
+        <p>Use o menu <b>Processos &gt; Todos</b> para abrir a lista de processos.</p>
+      </section>
+      <section id="painel-agenda" class="painel"><h1>Agenda</h1><p>Nenhum compromisso (mock).</p></section>
+      <section id="painel-vazio" class="painel"><h1>Em construção</h1><p>Tela fora do escopo do mock.</p></section>
+      <section id="painel-lista" class="painel">
+        <h1>Processos - Todos</h1>
+        <table class="grade" data-store="lista">
+          <thead><tr><th>Pasta</th><th>Número (CNJ)</th><th>Cliente</th><th>Parte contrária</th><th>Comarca</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="rodape-grade">
+          <span>Busca rápida:</span>
+          <select id="busca-campo"><option value="pasta" selected>Pasta</option><option value="cnj">Número</option><option value="parte_contraria">Parte contrária</option></select>
+          <input id="busca-rapida" type="text" placeholder="digite e tecle Enter" autocomplete="off">
+          <span class="paginacao" id="paginacao"></span>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="pj-msg" class="pj-msg"><div class="msg-caixa"><div class="msg-titulo"></div><div class="msg-texto"></div><div class="msg-botoes"></div></div></div>
+  <script src="/projuris/static/pj.js"></script>
+  <script>
+  (function () {
+    const { h } = PJ;
+    document.querySelectorAll(".no-ancora.raiz").forEach((a) =>
+      a.addEventListener("click", () => a.parentElement.classList.toggle("expandido")));
+    document.querySelectorAll("[data-abre]").forEach((a) => a.addEventListener("click", () => abrir(a.dataset.abre)));
+
+    function abrir(qual) {
+      document.querySelectorAll(".painel").forEach((p) => p.classList.remove("visivel"));
+      document.getElementById("painel-" + qual).classList.add("visivel");
+      if (qual === "lista") buscar("");
+    }
+
+    function desenhar(regs) {
+      const tb = document.querySelector('[data-store="lista"] tbody');
+      tb.innerHTML = "";
+      regs.forEach((r) => tb.append(h("tr", { "data-id": r.id },
+        h("td", {}, h("a", { href: "/projuris/processo/" + r.id, class: "link-comum" }, r.pasta)),
+        h("td", { texto: r.cnj }), h("td", { texto: r.cliente }), h("td", { texto: r.parte_contraria }),
+        h("td", { texto: r.comarca }), h("td", {}, h("span", { class: "etiqueta", texto: r.status })))));
+      const s = PJ.stores.lista;
+      document.getElementById("paginacao").textContent = `Exibindo ${regs.length} de ${s.total}`;
+    }
+
+    function buscar(valor) {
+      const campo = document.getElementById("busca-campo").value;
+      PJ.carregar("lista", `/projuris/api/processos?campo=${campo}&valor=${encodeURIComponent(valor)}`, desenhar);
+    }
+    document.getElementById("busca-rapida").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") buscar(e.target.value.trim());
+    });
+  })();
+  </script>
+</body>
+</html>

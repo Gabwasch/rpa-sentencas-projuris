@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ProJuris (mock) - Processo</title>
+  <link rel="stylesheet" href="/projuris/static/pj.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="marca">Pro<span>Juris</span> <small>mock</small></div>
+    <div class="aviso-demo">dados 100% fictícios</div>
+    <a class="sair" href="/projuris/">Início</a>
+  </header>
+  <main class="conteudo largo">
+    <div id="cabecalho" class="cabecalho-processo">
+      <div><span class="rot">Pasta:</span> <b id="cab-pasta"></b></div>
+      <div><span class="rot">Número Atual:</span> <b id="cab-cnj"></b></div>
+      <div><span class="rot">Cliente:</span> <span id="cab-cliente"></span></div>
+      <div><span class="rot">Parte contrária:</span> <span id="cab-parte"></span></div>
+    </div>
+
+    <div class="abas" id="abas">
+      <span class="aba ativa" data-aba="geral">dados gerais</span>
+      <span class="aba" data-aba="fases">fases (instâncias)</span>
+      <span class="aba" data-aba="eventos">eventos</span>
+      <span class="aba" data-aba="documentos">documentos</span>
+    </div>
+
+    <section class="painel-aba visivel" data-painel="geral">
+      <p>Ficha resumida do processo (mock). Use as abas para ver fases, eventos e documentos.</p>
+    </section>
+
+    <section class="painel-aba" data-painel="fases">
+      <div class="barra"><button class="btn" type="button" id="fase-adicionar">Adicionar</button>
+        <button class="btn" type="button" id="fase-decisao">Registrar Decisão</button></div>
+      <table class="grade" data-store="fases">
+        <thead><tr><th></th><th>Data</th><th>Fase</th><th>Número</th><th>Tribunal</th><th>Jurisdição</th><th>UF</th>
+          <th>Comarca</th><th>Juiz</th><th>Atual</th><th>Julgado</th><th>Decisão</th><th>Predom.</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="painel-aba" data-painel="eventos">
+      <div class="barra"><button class="btn" type="button" id="evento-adicionar">Adicionar</button></div>
+      <table class="grade" data-store="eventos">
+        <thead><tr><th></th><th>Data</th><th>Evento</th><th>Fase</th><th>Requisição</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="painel-aba" data-painel="documentos">
+      <div class="barra"><button class="btn" type="button" id="doc-adicionar">Adicionar</button></div>
+      <table class="grade" data-store="documentos">
+        <thead><tr><th></th><th>Data</th><th>Nome</th><th>Tipo</th><th>Evento</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+  <div id="pj-msg" class="pj-msg"><div class="msg-caixa"><div class="msg-titulo"></div><div class="msg-texto"></div><div class="msg-botoes"></div></div></div>
+  <script src="/projuris/static/pj.js"></script>
+  <script src="/projuris/static/processo.js"></script>
+</body>
+</html>

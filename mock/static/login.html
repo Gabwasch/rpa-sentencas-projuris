@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ProJuris (mock) - Entrar</title>
+  <link rel="stylesheet" href="/projuris/static/pj.css">
+</head>
+<body class="tela-login">
+  <form class="cartao-login" method="post" action="/projuris/login">
+    <div class="marca">Pro<span>Juris</span> <small>mock</small></div>
+    <p class="aviso-demo">Ambiente de demonstração · dados 100% fictícios</p>
+    <label>Usuário <input name="usuario" autocomplete="username" required></label>
+    <label>Senha <input name="senha" type="password" autocomplete="current-password" required></label>
+    <p class="erro-login" id="erro" hidden>Usuário ou senha inválidos.</p>
+    <button class="btn primario" type="submit">Entrar</button>
+    <p class="dica">Usuário <code>operador</code> · senha <code>demo123</code></p>
+  </form>
+  <script>if (new URLSearchParams(location.search).get("erro")) document.getElementById("erro").hidden = false;</script>
+</body>
+</html>

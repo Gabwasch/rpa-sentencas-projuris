@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Saídas geradas pelo robô (planilhas, PDFs baixados, prints, auditoria)
+robo/execucoes/
+saida/
+*.xlsx
+*.jsonl
+
+# Dados gerados pelo mock (python -m mock.seed / subida do mock)
+mock/dados/
+
+# Credenciais — nunca no git (use robo/.env.exemplo como modelo)
+.env
+*.env
