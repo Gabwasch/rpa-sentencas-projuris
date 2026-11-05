@@ -1,0 +1,16 @@
+# Robô de sentenças CPJ -> ProJuris. Valores apontam para o MOCK local (python demo.py).
+
+[projuris]
+url = "http://127.0.0.1:8702/projuris"
+# Chrome do robô (porta de depuração). O OPERADOR faz o login; o robô NUNCA digita senha.
+cdp = "http://127.0.0.1:9323"
+
+[cpj]
+env = ".env"              # credenciais da API do CPJ (ao lado do robô; NUNCA no git). Ver .env.exemplo
+janela_dias = 30          # DECs pendentes lançados nos últimos N dias
+paralelo = 4              # consultas simultâneas na varredura do CPJ
+
+[gravacao]
+# Processos em que o robô PODE gravar (um por vez, com S/N antes de cada Salvar).
+# Só entra aqui processo conferido pela validadora e liberado pelo responsável técnico.
+liberados = ["4385341-80.2026.8.16.0045"]
