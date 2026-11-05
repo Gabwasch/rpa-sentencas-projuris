@@ -84,7 +84,7 @@ sequenceDiagram
     R->>PJ: Eventos > Adicionar (tipo por ID, ligado à fase nova)
     R->>Op: Salvar o EVENTO? [S/N]
     PJ-->>R: "Requisição N cadastrada com sucesso" [OK] — único aviso dispensado
-    R->>PJ: confere evento na lista; ficha do evento abre
+    R->>PJ: confere evento na lista · ficha do evento abre
     R->>PJ: Documentos do evento > Adicionar (PDF, tipo Sentença, data)
     R->>Op: Salvar o DOCUMENTO? [S/N]
     R->>PJ: Salvar → confere na lista do evento
